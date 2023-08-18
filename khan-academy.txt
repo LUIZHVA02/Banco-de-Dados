@@ -1,0 +1,67 @@
+create table books
+(
+id integer primary key,
+name text,
+rating numeric
+);
+
+insert into books (id, name, rating) values
+(1,"Diário de um Banana", 4.0),
+(2,"Moby Dick", 5.0),
+(3,"Gyo", 4.5)
+
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY, name TEXT, release_year INTEGER);
+INSERT INTO movies VALUES (1, "Avatar", 2009);
+INSERT INTO movies VALUES (2, "Titanic", 1997);
+INSERT INTO movies VALUES (3, "Star Wars: Episode IV - A New Hope", 1977);
+INSERT INTO movies VALUES (4, "Shrek 2", 2004);
+INSERT INTO movies VALUES (5, "The Lion King", 1994);
+INSERT INTO movies VALUES (6, "Disney's Up", 2009);
+ 
+ 
+select *from movies;
+
+select *from movies where release_year > 2000 order by release_year;
+
+
+
+CREATE TABLE todo_list (id INTEGER PRIMARY KEY, item TEXT, minutes INTEGER);
+INSERT INTO todo_list VALUES (1, "Wash the dishes", 15);
+INSERT INTO todo_list VALUES (2, "vacuuming", 20);
+INSERT INTO todo_list VALUES (3, "Learn some stuff on KA", 30);
+insert into todo_list values (4, "Watch an intire movie", 80);
+
+
+select sum(minutes) from todo_list;
+
+
+
+create table loja_de_roupas
+(
+    id integer primary key, 
+    name text, 
+    preco numeric, 
+    quantidade integer,
+    porc_vendas integer
+);
+
+insert into loja_de_roupas(id, name, preco, quantidade, porc_vendas)values
+
+(1, "Camiseta Lacoste", 80.99, 100, 13),
+(4, "Camiseta Nike", 80.99, 100, 40),
+(7, "Camiseta Adidas", 80.99, 100, 27),
+(10, "Camiseta Gap", 80.99, 100, 7),
+(13, "Camiseta Oakley", 80.99, 100, 13),
+
+(2, "Calça Lacoste", 80.99, 100, 00),
+(5, "Calça Nike", 80.99, 100, 00),
+(8, "Calça Adidas", 80.99, 100, 00),
+(11, "Calça Gap", 80.99, 100, 00),
+(14, "Calça Oakley", 80.99, 100, 00),
+
+(3, "Boné Lacoste", 80.99, 100, 20),
+(6, "Boné Nike", 80.99, 100, 6),
+(9, "Boné Adidas", 80.99, 100, 20),
+(12, "Boné Gap", 80.99, 100, 8),
+(15, "Boné Oakley", 80.99, 100, 46);
