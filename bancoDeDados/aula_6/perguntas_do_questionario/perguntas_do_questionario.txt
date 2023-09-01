@@ -1,0 +1,30 @@
+Nome Completo:
+*
+1.  Escreva uma consulta para listar todos os carros disponíveis na loja.
+*
+2.  Recupere os detalhes de um carro específico usando seu ID.
+*
+3.  Mostre o nome, o CPF e o e-mail de todos os clientes cadastrados.
+*
+4.  Recupere os detalhes de uma compra específica, incluindo o nome do cliente, a data da compra e o total.
+*
+5.  Liste os carros que estão em estoque, juntamente com a quantidade disponível.
+*
+6.  Crie uma consulta para mostrar os clientes que compraram um determinado carro (usando o ID do carro).
+*
+7.  Exiba o total de cada compra, juntamente com os nomes dos carros comprados, para um cliente específico.
+*
+8.  Mostre os carros que foram comprados em uma determinada data.
+*
+9.  Recupere o total de vendas de cada cliente (nome e total) em ordem decrescente.
+*
+10.  Exiba o nome do cliente que fez a compra mais cara até o momento.
+*
+11.  Crie uma consulta para calcular a quantidade total de carros em estoque.
+*
+12.  Liste as compras feitas por um cliente específico, incluindo a data da compra e o total.
+*
+13.  Mostre os carros que nunca foram comprados.
+*
+14.  Mostre os clientes que ainda não fizeram nenhuma compra.
+*

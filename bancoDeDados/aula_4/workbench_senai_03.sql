@@ -56,6 +56,7 @@ select nome, preco from produtos inner join pedidos on pedidos.id_produtos=produ
 
 /*Faça uma consulta que retorne o id do produto, quantidade e o preço do Iphone 11*/
 
+/**/
 select  p.nome, p.preco, d.id_produtos, d.quantidade from produtos as p inner join pedidos as d on d.id_produtos=p.id_produtos where p.id_produtos=4;
 
 select *from produtos;

@@ -1,0 +1,1 @@
+O "inner join" serve pra fazer conexões entre tabelas.
