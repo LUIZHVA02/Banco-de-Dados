@@ -121,7 +121,12 @@ VALUES
  (6, 6, 102, '2023-03-15', 'presente');
 
 select alunos.nome, presenca.presenca from presenca inner join alunos 
-on alunos.aluno_id = presenca.aluno_id where presenca.presenca='presente'
+on alunos.aluno_id = presenca.aluno_id where presenca.presenca='presente';
+
+select professores.nome, disciplinas.CODIGO_DISCIPLINA from disciplinas 
+	inner join turmas on turmas.DISCIPLINA_ID = disciplinas.NOME_DISCIPLINA
+		inner join professores on turmas.PROFESSOR_ID = professores.PROFESSOR_ID
+			where disciplinas.CODIGO_DISCIPLINA = "BD201";
 
 /*Formulário de Banco de Dados
 
@@ -180,6 +185,7 @@ Encontre o nome dos professores que não estão ministrando nenhuma disciplina c
 
 
 Quais são as datas de aulas para a disciplina com código "AA401" entre '2023-04-01' e '2023-04-30' onde pelo menos um aluno faltou?
+Resposta:
 
 
 Liste os nomes dos alunos que não faltaram em nenhuma aula.
@@ -188,3 +194,10 @@ select alunos.nome, presenca.presenca from presenca inner join alunos
 on alunos.aluno_id = presenca.aluno_id where presenca.presenca='presente'
 
 */
+
+select presenca.data_aula, alunos.aluno_id, alunos.nome, disciplinas.NOME_DISCIPLINA 
+from presenca inner join turmas on presenca.turma_id = turmas.turma_id
+inner join disciplinas on turmas.disciplina_id = disciplinas.disciplina_id
+inner join alunos on alunos.aluno_id = presenca.aluno_id 
+between 2023-04-01 and 2023-04-30 where presenca.presenca='ausente'
+
