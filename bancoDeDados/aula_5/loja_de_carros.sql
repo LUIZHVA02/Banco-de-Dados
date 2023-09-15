@@ -17,12 +17,8 @@ insert into Carros (ID, Nome, Descricao, Preco, Categoria, Quantidade_em_Estoque
 (2, "Uno Ways", "Carro Seminovo. Único dono.", 35000, "Hatch", 50),
 (3, "Onix Plus", "Carro Usado. Único dono.", 40000, "Sedan", 84),
 (4, "Corolla", "Carro Seminovo. Segundo dono.", 65000, "Sedan", 59),
-(5, "HB20", "Carro 0 quilômetro.", 58000, "Sedan", 60);
-
-insert into Carros (ID, Nome, Descricao, Preco, Categoria, Quantidade_em_Estoque) values
-(6, "ECHO Esport", "Carro com 10 quilômetro rodados.", 28000, "Hatch", 60);
-
-insert into carros (ID, Nome, Descricao, Preco, Categoria, Quantidade_em_Estoque) values
+(5, "HB20", "Carro 0 quilômetro.", 58000, "Sedan", 60),
+(6, "ECHO Esport", "Carro com 10 quilômetro rodados.", 28000, "Hatch", 60),
 (7, "Celta", "Carro com 17 quilômetro rodados.", 8000, "Hatch", 37),
 (8, "Honda Fit", "Carro com 20 quilômetro rodados.", 48000, "Sedan", 52);
 
@@ -47,9 +43,7 @@ insert into Clientes (ID, Nome, CPF, Endereco, Telefone, Email) values
 (3, "Vitor Santana de Jesus", "178.818.345-93", "Alameda Rogério Ceni 15,  São Paulo, São Paulo", "(11)93543-3153", "vitodejesus@gmail.com"),
 (4, "Fernando Leonid Careaga Camelo", "387.864.964-84", "Avenida Paulista 46,  São Paulo, São Paulo", "(11)93798-4165", "fernadoLeonid@gmail.com"),
 (5, "Bruno Gomes da Silva", "256.876.138-43", "Rua José Ribeiro 22,  São Paulo, São Paulo", "(11)96251-3843", "brunosilva@gmail.com"),
-(6, "Celso Marcos Furtado", "135.783.527-84", "Rua Gustavo Tomaz Junior,  São Paulo, São Paulo", "(11)96546-3843", "celso@celso.dev.br");
-
-insert into Clientes (ID, Nome, CPF, Endereco, Telefone, Email) values
+(6, "Celso Marcos Furtado", "135.783.527-84", "Rua Gustavo Tomaz Junior,  São Paulo, São Paulo", "(11)96546-3843", "celso@celso.dev.br"),
 (7, "Nicolas Petri", "465.684.841-23", "Rua Rui Barbosa,  São Paulo, São Paulo", "(11)96546-3843", "nvpetri@gmail.com"),
 (8, "Marcos Araujo", "321.395.536-75", "Rua Marechal Deodoro,  São Paulo, São Paulo", "(11)96168-4841", "marcos80lh@gmail.com"),
 (9, "André Ribeiro", "437.835.184-36", "Avenida Rui Barbosa, São Paulo, Carapicuíba", "(11)95616-5862", "andre.ribeiro@uol.com");
@@ -70,9 +64,7 @@ insert into Compras(ID, Cliente_ID, Data_da_Compra, Total_da_Compra) values
 (3,3,"4/04/2024",40000),
 (4,4,"31/06/2012",65000),
 (5,5,"09/10/2012",58000),
-(6,6,"22/11/2012",28000);
-
-insert into compras (ID, Cliente_ID, Data_da_Compra, Total_da_Compra) values
+(6,6,"22/11/2012",28000),
 (7,7,"25/04/2011",28000),
 (8,8,"04/04/2008",28000);
 
@@ -93,14 +85,10 @@ insert into carros_Compra (ID, Compra_ID, Carro_ID, Quantidade, Subtotal) values
 (2, 2, 2, 1, 35000),
 (3, 3, 3, 3, 40000),
 (4, 4, 4, 6, 65000),
-(5, 5, 5, 6, 58000);
-
-insert into carros_compra (ID, Compra_ID, Carro_ID, Quantidade, Subtotal) values
-(6, 6, 6, 3, 28000);
-
-insert into carros_compra (ID, Compra_ID, Carro_ID, Quantidade, Subtotal) values
-(7,7,6,6,28000),
-(8,8,6,5,28000);
+(5, 5, 5, 6, 58000),
+(6, 6, 6, 3, 28000),
+(7, 7, 6, 6, 28000),
+(8, 8, 6, 5, 28000);
 
 create table Estoque
 (
@@ -117,9 +105,7 @@ insert into Estoque (ID, Carro_ID, Quantidade_em_Estoque) values
 (3, 3, 84),
 (4, 4, 59),
 (5, 5, 60),
-(6, 6, 60);
-
-insert into Estoque (ID, Carro_ID, Quantidade_em_Estoque) values
+(6, 6, 60),
 (7, 7, 37),
 (8, 8, 52);
 
@@ -133,13 +119,11 @@ select compras.total_da_compra, carros.nome, clientes.nome from compras
 select clintes.id, clientes.nome, compras.id, compras.total_da_compra from compras
 	inner join clientes on clientes.id = compras.cliente_id
 		where compras.total_da_compra
-		order by compras.total_da_compra;
-/*Desafio
-	
-*/
 
-/* 1.  Escreva uma consulta para listar todos os carros disponíveis na loja.
-Resposta 1
+/*Desafio
+
+1.  Escreva uma consulta para listar todos os carros disponíveis na loja.
+	Resposta 1
 	"select ID, Nome from carros;"
 
 2.  Recupere os detalhes de um carro específico usando seu ID.
@@ -191,5 +175,46 @@ Resposta 1
 
 14.  Mostre os clientes que ainda não fizeram nenhuma compra.
 	 
+*/
+
+/* Exemplos usando a condição WHERE
+AND: Selecionar carros que pertencem à categoria 'Esportivo' e têm um preço menor que 50000.
+Exemplo: SELECT * FROM Carros WHERE Categoria = 'Esportivo' AND Preço < 50000;
+Resposta: select *from carros where categoria='Hatch' and Quantidade_em_Estoque < 51;
+
+
+OR: Selecionar carros que pertencem à categoria 'SUV' ou têm um preço maior que 60000.
+Exemplo: SELECT * FROM Carros WHERE Categoria = 'SUV' OR Preço > 60000;
+Resposta: select *from carros where categoria='Hatch' or preco > 50000;
+
+
+NOT: Selecionar carros que não são da categoria 'Econômico'.
+Exemplo: SELECT * FROM Carros WHERE NOT Categoria = 'Econômico';
+Resposta: select *from compras where not total_da_compra='28000';
+
+
+IS NULL: Selecionar carros que não possuem descrição.
+Exemplo: SELECT * FROM Carros WHERE Descrição IS NULL;
+Resposta: select *from clientes where nome is null;
+
+
+IS NOT NULL: Selecionar carros que possuem descrição.
+Exemplo: SELECT * FROM Carros WHERE Descrição IS NOT NULL;
+Resposta: select *from clientes where nome is not null;
+
+
+BETWEEN: Selecionar carros com um preço entre 20000 e 40000.
+Exemplo: SELECT * FROM Carros WHERE Preço BETWEEN 20000 AND 40000;
+Resposta: select *from clientes where id between 2 and 7;
+
+
+IN: Selecionar carros da categoria 'Esportivo' ou 'SUV'.
+Exemplo: SELECT * FROM Carros WHERE Categoria IN ('Esportivo', 'SUV');
+Resposta: select *from carros where categoria in ('Hatch');
+
+
+LIKE: Selecionar carros cujo nome começa com 'Ford'.
+Exemplo: SELECT * FROM Carros WHERE Nome LIKE 'Ford%';
+Resposta: select *from clientes where email like '%@gmail%';
 */
 
