@@ -18,7 +18,8 @@ VALUES
  (3, 'Carlos Oliveira', '1997-01-10', 'Rua C, 789', '(11) 5678-1234'),
  (4, 'Ana Pereira', '1999-09-05', 'Av. D, 987', '(11) 4321-8765'),
  (5, 'Pedro Rodrigues', '1996-07-18', 'Rua E, 654', '(11) 3456-7890'),
- (6, 'Sara Costa', '2000-04-30', 'Av. F, 321', '(11) 8765-4321');
+ (6, 'Sara Costa', '2000-04-30', 'Av. F, 321', '(11) 8765-4321'),
+ (7, 'Luiz Vidal', '2000-09-05', 'Av. B, 201', '(11) 98079-5951');
 
 
 create table professores
@@ -96,7 +97,8 @@ VALUES
  (3, 3, 1, '2023-03-10', 92),
  (4, 4, 2, '2023-03-15', 88),
  (5, 5, 2, '2023-03-15', 95),
- (6, 6, 2, '2023-03-15', 75);
+ (6, 6, 2, '2023-03-15', 75),
+ (7, 7, 1, '2023-04-15', 75);
 
 
 create table presenca 
@@ -118,20 +120,22 @@ VALUES
  (3, 3, 101, '2023-03-10', 'presente'),
  (4, 4, 102, '2023-03-15', 'ausente'),
  (5, 5, 102, '2023-03-15', 'presente'),
- (6, 6, 102, '2023-03-15', 'presente');
+ (6, 6, 102, '2023-03-15', 'presente'),
+ (7, 7, 101, '2023-04-15', 'ausente');
 
 select alunos.nome, presenca.presenca from presenca inner join alunos 
 on alunos.aluno_id = presenca.aluno_id where presenca.presenca='presente';
 
-select professores.nome, disciplinas.CODIGO_DISCIPLINA from disciplinas 
-	inner join turmas on turmas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
-		inner join professores on turmas.PROFESSOR_ID = professores.PROFESSOR_ID
-			where disciplinas.CODIGO_DISCIPLINA = "BD201";
+
 
 /*Formulário de Banco de Dados
 
 Qual é o nome do professor que ministra a disciplina com código "BD201"?
-
+Resposta:
+select professores.nome, disciplinas.CODIGO_DISCIPLINA from disciplinas 
+	inner join turmas on turmas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
+		inner join professores on turmas.PROFESSOR_ID = professores.PROFESSOR_ID
+			where disciplinas.CODIGO_DISCIPLINA = "BD201";
 
 Para a disciplina com código "PC101", obtenha a lista de alunos que obtiveram notas maiores que 80.
 
@@ -195,9 +199,9 @@ on alunos.aluno_id = presenca.aluno_id where presenca.presenca='presente'
 
 */
 
-select presenca.data_aula, alunos.aluno_id, alunos.nome, disciplinas.NOME_DISCIPLINA 
+select presenca.data_aula, disciplinas.NOME_DISCIPLINA, alunos.aluno_id, alunos.nome, presenca.presenca
 from presenca inner join turmas on presenca.turma_id = turmas.turma_id
 	inner join disciplinas on turmas.disciplina_id = disciplinas.disciplina_id
 		inner join alunos on alunos.aluno_id = presenca.aluno_id 
-			between 2023-04-01 and 2023-04-30 where presenca.presenca='ausente'
+			where presenca.presenca='ausente' having presenca.data_aula between '2023-04-01' and '2023-04-30'
 
