@@ -129,6 +129,7 @@ VALUES
  (6, 6, 102, '2023-03-15', 'presente'),
  (7, 7, 101, '2023-04-15', 'ausente');
 
+select alunos.NOME, turmas.DISCIPLINA_ID
 
 /*Formulário de Banco de Dados
 
@@ -140,9 +141,14 @@ select professores.nome, disciplinas.CODIGO_DISCIPLINA from disciplinas
 			where disciplinas.CODIGO_DISCIPLINA = "BD201";
 
 Para a disciplina com código "PC101", obtenha a lista de alunos que obtiveram notas maiores que 80.
-
+Resposta:
+select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, notas.NOTA
+	from disciplinas inner join notas on notas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
+		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID
+        WHERE disciplinas.CODIGO_DISCIPLINA = "PC101" and notas.nota >= 80;
 
 Quais alunos estiveram presentes na aula da turma com ID 101 na data '2023-03-10'?
+Resposta:
 
 
 Calcule a média das notas dos alunos na disciplina com código "IA501".
@@ -185,7 +191,8 @@ Liste as disciplinas e seus códigos onde todos os alunos obtiveram uma nota mai
 Resposta:
 select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, notas.NOTA
 	from disciplinas inner join notas on notas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
-		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID where notas.nota >= 80
+		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID
+        WHERE NOT notas.nota <= 70;
 
 Quais alunos obtiveram notas entre 80 e 90 na disciplina "IA501" ou "DW301"?
 Resposta:
