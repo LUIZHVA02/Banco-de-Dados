@@ -19,7 +19,9 @@ VALUES
  (4, 'Ana Pereira', '1999-09-05', 'Av. D, 987', '(11) 4321-8765'),
  (5, 'Pedro Rodrigues', '1996-07-18', 'Rua E, 654', '(11) 3456-7890'),
  (6, 'Sara Costa', '2000-04-30', 'Av. F, 321', '(11) 8765-4321'),
- (7, 'Luiz Vidal', '2000-09-05', 'Av. B, 201', '(11) 98079-5951');
+ (7, 'Luiz Vidal', '2000-09-05', 'Av. B, 201', '(11) 98079-5951'),
+ (8, 'Nicolau Copernico', '2000-10-14', 'Av. B, 204', '(11) 95222-6646');
+
 
 
 create table professores
@@ -98,8 +100,12 @@ VALUES
  (4, 4, 2, '2023-03-15', 88),
  (5, 5, 2, '2023-03-15', 95),
  (6, 6, 2, '2023-03-15', 75),
- (7, 7, 1, '2023-04-15', 75);
-
+ (7, 7, 1, '2023-04-15', 75),
+ (8, 8, 3, '2023-04-04', 89);
+ 
+ INSERT INTO Notas (nota_id, aluno_id, disciplina_id, data_avaliacao, nota)
+VALUES
+ (9, 8, 5, '2023-05-15', 85);
 
 create table presenca 
 (
@@ -176,25 +182,72 @@ Qual é o nome do aluno que faltou em todas as aulas?
 
 
 Liste as disciplinas e seus códigos onde todos os alunos obtiveram uma nota maior ou igual a 70.
-
+Resposta:
+select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, notas.NOTA
+	from disciplinas inner join notas on notas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
+		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID where notas.nota >= 80
 
 Quais alunos obtiveram notas entre 80 e 90 na disciplina "IA501" ou "DW301"?
-
+Resposta:
+select alunos.aluno_id, alunos.nome, notas.nota, disciplinas.nome_disciplina, disciplinas.codigo_disciplina
+	from disciplinas inner join notas on disciplinas.disciplina_id = notas.disciplina_id
+		inner join alunos on notas.aluno_id = alunos.aluno_id where notas.nota between '80' and '90' 
+			having disciplinas.codigo_disciplina = "IA501" or disciplinas.codigo_disciplina = "DW301";
 
 Encontre o nome dos professores que não estão ministrando nenhuma disciplina com carga horária superior a 60 horas.
-
+Resposta:
+select professores.professor_id, professores.nome, disciplinas.disciplina_id, disciplinas.nome_disciplina, disciplinas.CARGA_HORARIA
+	from professores inner join turmas on professores.professor_id = turmas.professor_id
+		inner join disciplinas on turmas.disciplina_id = disciplinas.disciplina_id
+			where disciplinas.CARGA_HORARIA < 60;
 
 Quais são as datas de aulas para a disciplina com código "AA401" entre '2023-04-01' e '2023-04-30' onde pelo menos um aluno faltou?
 Resposta:
 select presenca.data_aula, disciplinas.NOME_DISCIPLINA, alunos.aluno_id, alunos.nome, presenca.presenca
-from presenca inner join turmas on presenca.turma_id = turmas.turma_id
-	inner join disciplinas on turmas.disciplina_id = disciplinas.disciplina_id
-		inner join alunos on alunos.aluno_id = presenca.aluno_id 
-			where presenca.presenca='ausente' having presenca.data_aula between '2023-04-01' and '2023-04-30'
+	from presenca inner join turmas on presenca.turma_id = turmas.turma_id
+		inner join disciplinas on turmas.disciplina_id = disciplinas.disciplina_id
+			inner join alunos on alunos.aluno_id = presenca.aluno_id 
+				where presenca.presenca='ausente' having presenca.data_aula between '2023-04-01' and '2023-04-30';
 
 Liste os nomes dos alunos que não faltaram em nenhuma aula.
 Resposta:
 select alunos.nome, presenca.presenca from presenca inner join alunos 
-on alunos.aluno_id = presenca.aluno_id where presenca.presenca='presente'
+	on alunos.aluno_id = presenca.aluno_id where presenca.presenca='presente';
+    
 */
-select professores.professor_id, professores.nome, disciplinas.disciplina_id,
+
+/* Nomenclaturas
+
+
+alunos.ALUNO_ID
+alunos.NOME
+alunos.DATA_NASCIMENTO
+alunos.TELEFONE
+alunos.ENDERECO 
+
+professores.PROFESSOR_ID
+professores.NOME
+professores.DATA_CONTRATACAO
+
+disciplinas.DISCIPLINA_ID
+disciplinas.NOME_DISCIPLINA
+disciplinas.CODIGO_DISCIPLINA
+disciplinas.CARGA_HORARIA
+
+turmas.TURMA_ID
+turmas.ANO_ESCOLAR
+turmas.DISCIPLINA_ID
+turmas.PROFESSOR_ID
+
+notas.NOTA_ID
+notas.ALUNO_ID
+notas.DISCIPLINA_ID
+notas.DATA_AVALIACAO
+notas.NOTA
+
+presenca.PRESENCA_ID
+presenca.ALUNO_ID
+presenca.TURMA_ID
+presenca.DATA_AULA
+presenca.PRESENCA
+*/
