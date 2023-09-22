@@ -107,6 +107,10 @@ VALUES
 VALUES
  (9, 8, 5, '2023-05-15', 85);
 
+INSERT INTO Notas (nota_id, aluno_id, disciplina_id, data_avaliacao, nota)
+VALUES
+(10, 1, 2, '2023-04-11', 68);
+
 create table presenca 
 (
 	PRESENCA_ID int primary key not null, 
@@ -129,10 +133,6 @@ VALUES
  (6, 6, 102, '2023-03-15', 'presente'),
  (7, 7, 101, '2023-04-15', 'ausente');
 
-select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, notas.NOTA
-	from disciplinas inner join notas on notas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
-		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID
-			WHERE notas.nota = all (select nota from notas where nota >= 80);
 
 /*Formulário de Banco de Dados
 
@@ -167,47 +167,82 @@ select avg(notas.nota) as 'Media', disciplinas.DISCIPLINA_ID,
 				disciplinas.DISCIPLINA_ID, disciplinas.NOME_DISCIPLINA, disciplinas.CODIGO_DISCIPLINA;
 
 Liste todos os alunos e as disciplinas que eles estão matriculados. Inclua os alunos que não estão matriculados em nenhuma disciplina.
+Resposta:
+select all alunos.nome, disciplinas.nome_disciplina from alunos
+	inner join notas on alunos.aluno_id = notas.aluno_id
+		inner join disciplinas on notas.disciplina_id = disciplinas.disciplina_id;
 
-
-Liste todos os alunos que não têm notas registradas.
-
+Liste todos os alunos que não têm notas registradas. 
+Resposta:
+select alunos.nome, notas.nota from alunos
+	inner join notas on alunos.aluno_id = notas.aluno_id
+		where notas.nota = null;
 
 Quais disciplinas têm menos de 40 horas de carga horária ou mais de 100 horas de carga horária?
-
+Resposta:
+select disciplinas.DISCIPLINA_ID, disciplinas.NOME_DISCIPLINA, 
+	disciplinas.CODIGO_DISCIPLINA, disciplinas.CARGA_HORARIA from disciplinas 
+		where disciplinas.CARGA_HORARIA > 100 or disciplinas.CARGA_HORARIA < 40;
 
 Encontre o nome dos professores que não estão ministrando a disciplina "IA501".
-
+Resposta:
+	select professores.nome, disciplinas.NOME_DISCIPLINA, disciplinas.CODIGO_DISCIPLINA, disciplinas.DISCIPLINA_ID
+	from professores inner join turmas on turmas.PROFESSOR_ID = professores.PROFESSOR_ID
+		inner join disciplinas on disciplinas.DISCIPLINA_ID = turmas.disciplina_id
+			where not disciplinas.CODIGO_DISCIPLINA = 'IA501';
 
 Quais turmas não têm professores atribuídos?
-
+Resposta:
+select turmas.TURMA_ID, turmas.PROFESSOR_ID, professores.NOME from turmas
+	inner join professores on professores.PROFESSOR_ID = turmas.PROFESSOR_ID
+		where not turmas.PROFESSOR_ID = professores.PROFESSOR_ID;
 
 Liste as disciplinas e seus códigos onde pelo menos um aluno obteve uma nota menor que 60.
-
+Resposta:
+select count(alunos.NOME) as min_alunos, alunos.NOME, disciplinas.CODIGO_DISCIPLINA, 
+	disciplinas.NOME_DISCIPLINA, notas.nota from disciplinas 
+		inner join notas on disciplinas.DISCIPLINA_ID = notas.DISCIPLINA_ID
+			inner join notas.ALUNO_ID = alunos.ALUNO_ID where notas.nota < 60
+				group by min_alunos having min_alunos >=1;
 
 Qual é a média das notas dos alunos na disciplina com código "DW301" entre '2023-03-01' e '2023-03-31'?
 
 
 Liste todos os alunos que estão matriculados em mais de uma disciplina.
-select alunos.nome, disciplinas.NOME_DISCIPLINA from alunos 
+Resposta:
+select count(alunos.nome) as matricula, alunos.nome, disciplinas.NOME_DISCIPLINA from alunos 
 	inner join notas on notas.aluno_id = alunos.aluno_id
 		inner join disciplinas on disciplinas.disciplina_id = notas.disciplina_id
-			where 
+			group by alunos.nome having matricula >1;
 
 Quais são os anos escolares distintos das turmas onde pelo menos um aluno faltou?
-
+Resposta:
+select count(presenca.presenca) as min_presenca, turmas.ANO_ESCOLAR, alunos.NOME, 
+	presenca.PRESENCA, turmas.TURMA_ID from alunos
+		inner join presenca on presenca.ALUNO_ID = alunos.ALUNO_ID
+			inner join turmas on turmas.TURMA_ID = presenca.TURMA_ID
+				where presenca.presenca = 'ausente' group by turmas.TURMA_ID 
+                having min_presenca >= 1;
 
 Mostre o nome dos professores que estão ministrando a disciplina "PC101" ou "BD201".
-
+Resposta:
+select professores.nome, disciplinas.NOME_DISCIPLINA, disciplinas.CODIGO_DISCIPLINA 
+	from disciplinas inner join turmas on turmas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
+		inner join professores on turmas.PROFESSOR_ID = professores.PROFESSOR_ID
+			where disciplinas.CODIGO_DISCIPLINA = 'PC101' or disciplinas.CODIGO_DISCIPLINA ='BD201'
 
 Qual é o nome do aluno que faltou em todas as aulas?
-
+Resposta:
+select alunos.nome, presenca.presenca from presenca
+	inner join alunos on presenca.aluno_id = alunos.aluno_id
+		where not presenca.presenca = 'presente';
 
 Liste as disciplinas e seus códigos onde todos os alunos obtiveram uma nota maior ou igual a 70.
 Resposta:
-select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, notas.NOTA
+select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, min(nota) as min_nota
 	from disciplinas inner join notas on notas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
-		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID
-			WHERE notas.nota <= 70;
+		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID WHERE notas.nota >= 70 
+            order by disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, min_nota;
 
 Quais alunos obtiveram notas entre 80 e 90 na disciplina "IA501" ou "DW301"?
 Resposta:
@@ -273,3 +308,9 @@ presenca.TURMA_ID
 presenca.DATA_AULA
 presenca.PRESENCA
 */
+        
+select count(alunos.NOME) as min_alunos, alunos.NOME, disciplinas.CODIGO_DISCIPLINA, 
+	disciplinas.NOME_DISCIPLINA, notas.nota from disciplinas 
+		inner join notas on disciplinas.DISCIPLINA_ID = notas.DISCIPLINA_ID
+			inner join notas.ALUNO_ID = alunos.ALUNO_ID where notas.nota < 60
+				group by min_alunos having min_alunos >=1;
