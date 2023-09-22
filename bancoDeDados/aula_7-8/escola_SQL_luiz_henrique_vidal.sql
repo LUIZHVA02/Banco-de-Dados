@@ -186,7 +186,7 @@ select disciplinas.DISCIPLINA_ID, disciplinas.NOME_DISCIPLINA,
 
 Encontre o nome dos professores que não estão ministrando a disciplina "IA501".
 Resposta:
-	select professores.nome, disciplinas.NOME_DISCIPLINA, disciplinas.CODIGO_DISCIPLINA, disciplinas.DISCIPLINA_ID
+select professores.nome, disciplinas.NOME_DISCIPLINA, disciplinas.CODIGO_DISCIPLINA, disciplinas.DISCIPLINA_ID
 	from professores inner join turmas on turmas.PROFESSOR_ID = professores.PROFESSOR_ID
 		inner join disciplinas on disciplinas.DISCIPLINA_ID = turmas.disciplina_id
 			where not disciplinas.CODIGO_DISCIPLINA = 'IA501';
@@ -202,8 +202,8 @@ Resposta:
 select count(alunos.NOME) as min_alunos, alunos.NOME, disciplinas.CODIGO_DISCIPLINA, 
 	disciplinas.NOME_DISCIPLINA, notas.nota from disciplinas 
 		inner join notas on disciplinas.DISCIPLINA_ID = notas.DISCIPLINA_ID
-			inner join notas.ALUNO_ID = alunos.ALUNO_ID where notas.nota < 60
-				group by min_alunos having min_alunos >=1;
+			inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID where notas.nota < 60
+				group by alunos.NOME having min_alunos >=1;
 
 Qual é a média das notas dos alunos na disciplina com código "DW301" entre '2023-03-01' e '2023-03-31'?
 
@@ -271,6 +271,8 @@ Resposta:
 select alunos.nome, presenca.presenca from presenca inner join alunos 
 	on alunos.aluno_id = presenca.aluno_id where presenca.presenca='presente';
     
+    
+    https://forms.gle/Q1ngf5Nw1f6fpjYg9
 */
 
 /* Nomenclaturas
@@ -308,9 +310,3 @@ presenca.TURMA_ID
 presenca.DATA_AULA
 presenca.PRESENCA
 */
-        
-select count(alunos.NOME) as min_alunos, alunos.NOME, disciplinas.CODIGO_DISCIPLINA, 
-	disciplinas.NOME_DISCIPLINA, notas.nota from disciplinas 
-		inner join notas on disciplinas.DISCIPLINA_ID = notas.DISCIPLINA_ID
-			inner join notas.ALUNO_ID = alunos.ALUNO_ID where notas.nota < 60
-				group by min_alunos having min_alunos >=1;
