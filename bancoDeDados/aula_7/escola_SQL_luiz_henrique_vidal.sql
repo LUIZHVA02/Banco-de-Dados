@@ -129,7 +129,10 @@ VALUES
  (6, 6, 102, '2023-03-15', 'presente'),
  (7, 7, 101, '2023-04-15', 'ausente');
 
-select alunos.NOME, turmas.DISCIPLINA_ID
+select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, notas.NOTA
+	from disciplinas inner join notas on notas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
+		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID
+			WHERE notas.nota = all (select nota from notas where nota >= 80);
 
 /*Formulário de Banco de Dados
 
@@ -149,10 +152,19 @@ select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, nota
 
 Quais alunos estiveram presentes na aula da turma com ID 101 na data '2023-03-10'?
 Resposta:
-
-
+select alunos.NOME, presenca.presenca, turmas.turma_id, presenca.data_aula from alunos
+	inner join presenca on alunos.aluno_id = presenca.aluno_id
+		inner join turmas on turmas.turma_id = presenca.turma_id
+			where turmas.turma_id = 101 and presenca.presenca = 'presente' 
+				and presenca.data_aula = '2023-03-10';
+			
 Calcule a média das notas dos alunos na disciplina com código "IA501".
-
+Resposta:
+select avg(notas.nota) as 'Media', disciplinas.DISCIPLINA_ID, 
+	disciplinas.NOME_DISCIPLINA, disciplinas.CODIGO_DISCIPLINA
+		from notas inner join disciplinas on disciplinas.disciplina_id = notas.disciplina_id
+			where disciplinas.CODIGO_DISCIPLINA = 'IA501' group by notas.nota, 
+				disciplinas.DISCIPLINA_ID, disciplinas.NOME_DISCIPLINA, disciplinas.CODIGO_DISCIPLINA;
 
 Liste todos os alunos e as disciplinas que eles estão matriculados. Inclua os alunos que não estão matriculados em nenhuma disciplina.
 
@@ -176,7 +188,10 @@ Qual é a média das notas dos alunos na disciplina com código "DW301" entre '2
 
 
 Liste todos os alunos que estão matriculados em mais de uma disciplina.
-
+select alunos.nome, disciplinas.NOME_DISCIPLINA from alunos 
+	inner join notas on notas.aluno_id = alunos.aluno_id
+		inner join disciplinas on disciplinas.disciplina_id = notas.disciplina_id
+			where 
 
 Quais são os anos escolares distintos das turmas onde pelo menos um aluno faltou?
 
@@ -192,7 +207,7 @@ Resposta:
 select disciplinas.NOME_DISCIPLINA, disciplinas.DISCIPLINA_ID, alunos.NOME, notas.NOTA
 	from disciplinas inner join notas on notas.DISCIPLINA_ID = disciplinas.DISCIPLINA_ID
 		inner join alunos on notas.ALUNO_ID = alunos.ALUNO_ID
-        WHERE NOT notas.nota <= 70;
+			WHERE notas.nota <= 70;
 
 Quais alunos obtiveram notas entre 80 e 90 na disciplina "IA501" ou "DW301"?
 Resposta:
