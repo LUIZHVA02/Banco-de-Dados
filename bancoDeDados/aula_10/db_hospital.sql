@@ -17,12 +17,15 @@ create table alas(
     foreign key (idHospital) references hospital(idHospital)
 );
 
-/*create table enfermeira(
+create table enfermeira(
 	idEnfermeira int primary key not null,
     nome varchar(200),
     cre int,
-    chefe varchar(200)
-);*/
+    chefe varchar(200),
+    idEnfermeiraChefe int,
+    
+    foreign key (idEnfermeiraChefe) references enfermeira(idEnfermeira)
+);
 
 create table endereco(
 	idEndereco int primary key not null,
@@ -37,6 +40,19 @@ create table endereco(
     foreign key (idHospital) references hospital(idHospital)
 );
 
+create table medico(
+	idMedico int primary key not null,
+    nome varchar(200),
+    especialidade varchar(200),
+    crm int
+);
+
+create table paciente(
+	idPaciente int primary key not null auto_increment,
+    nome varchar(200),
+    sexo varchar(10)
+);
+
 create table planoSaude (
 	idPlanoSaude int primary key not null,
     idHospital int,
@@ -48,13 +64,6 @@ create table planoSaude (
     foreign key (idMedico) references medico(idMedico)
 );
 
-create table medico(
-	idMedico int primary key not null,
-    nome varchar(200),
-    especialidade varchar(200),
-    crm int
-);
-
 create table atendimento(
 	idAtendimento int primary key not null,
     idMedico int,
@@ -64,10 +73,4 @@ create table atendimento(
     
     foreign key (idMedico) references medico(idMedico),
     foreign key (idPaciente) references paciente(idPaciente)
-);
-
-create table paciente(
-	idPaciente int primary key not null auto_increment,
-    nome varchar(200),
-    sexo varchar(10)
 );
