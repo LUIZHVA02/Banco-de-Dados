@@ -1,5 +1,3 @@
-drop database tony_pizzaria;
-
 create database tony_pizzaria;
 
 use tony_pizzaria;
@@ -49,19 +47,19 @@ create table produtos(
     idCategoria int,
     nome varchar(150),
     descricao varchar(200),
-    preco numeric(5),
+    preco double,
     link_img_produtos varchar(150),
     
     foreign key (idCategoria) references categorias(idCategoria)
 );
 
 create table pedidos(
-	idPedidos int primary key not null auto_increment,
+	idPedido int primary key not null,
     idProduto int,
     idUsuario int,
     data_hora_pedido datetime,
     data_hora_entrega datetime,
-    valorTotal numeric(5),
+    valorTotal double,
     
     foreign key (idProduto) references produtos(idProduto),
     foreign key (idUsuario) references usuarios(idUsuario) 
@@ -77,6 +75,16 @@ create table comentarios(
     
     foreign key (idProduto) references produtos(idProduto),
     foreign key (idUsuario) references usuarios(idUsuario) 
+);
+
+create table pagamentos(
+	idPagamento int primary key not null auto_increment,
+    idPedido int,
+    forma_pagamento1 varchar(200),
+    forma_pagamento2 varchar(200),
+    forma_pagamento3 varchar(200),
+    
+	foreign key (idPedido) references pedidos(idPedido)
 );
 
 insert into tonyPizzaria (idPizzaria, nome, cnpj, email, telefone)values
@@ -96,26 +104,36 @@ insert into enderecos(idEndereco, idUsuario, cep, cidade, bairro, rua, complemen
 (0, 4, 04325000, "São Paulo", "Vila do Encontro", "Avenida Engenheiro Armando de Arruda Pereira", ""),
 (0, 5, 03325000,"São Paulo", "Vila Santo Estevão", "Rua Aguapeí", "");
 
-insert into categorias(idCategoria, nome, qntd_produtos, subCategorias)values
-(0, "Pizzas", 2, ""),
-(0, "Pizzas", 2, ""),
-(0, "Pizzas", 2, ""),
-(0, "Refrigerantes"),
-(0, "Refrigerantes");
+insert into categorias(idCategoria, nome, qntd_produtos, subCategoria)values
+(0, "Pizzas", 2, "Salgadas"),
+(0, "Pizzas", 2, "Doces"),
+(0, "Pizzas Brotinho", 2, "Salgadas"),
+(0, "Pizzas Brotinho", 2, "Doces"),
+(0, "Sobremesas", 5, "Maiores"),
+(0, "Sobremesas", 5, "Menores"),
+(0, "Bebidas", 9, "3 Litros"),
+(0, "Bebidas", 9, "2 Litros"),
+(0, "Bebidas", 8, "1 Litro"),
+(0, "Bebidas", 9, "600 Mililitros");
 
 insert into produtos(idProduto, idCategoria, nome, descricao, preco, link_img_produtos)values
-(),
-(),
-(),
-(),
-();
+(0, 1, "Pizza de Calabreza com Queijo", "", 16.99, ""),
+(0, 2, "Pizza de Chocolate com Morango","", 19.99, ""),
+(0, 3, "Pizza Brotinho de Calabreza com Queijo", "", 14.99, ""),
+(0, 4, "Pizza Brotinho de Prestígio", "", 15.99, ""),
+(0, 5, "Balde de Sorvete", "Balde de 3 Litros de Sorvete do sabor de sua escolha", 27.90, ""),
+(0, 6, "Milkshake", "Milkshake de 500 gramas com o sabor de sua escolha", 13.80, ""),
+(0, 7, "Refrigerante Coca Cola","", 10.99, ""),
+(0, 8, "Refrigerante Dolly Guaraná", "", 10.99, ""),
+(0, 9, "Refrigerante Pepsi Cola", "", 8.99, ""),
+(0, 10, "Cerveja Heineken", "", 18.99, "");
 
-insert into pedidos(idPedidos, idProduto, idUsuario, data_hora_pedido, data_hora_entrega, valorTotal)values
-(),
-(),
-(),
-(),
-();
+insert into pedidos(idPedido, idProduto, idUsuario, data_hora_pedido, data_hora_entrega, valorTotal)values
+(0, ),
+(0, ),
+(0, ),
+(0, ),
+(0, );
 
 insert into comentarios(idComentario, idUsuario, idProduto, texto, data_hora_publicacao, avaliacao)values
 (),
@@ -123,3 +141,4 @@ insert into comentarios(idComentario, idUsuario, idProduto, texto, data_hora_pub
 (),
 (),
 ();
+
