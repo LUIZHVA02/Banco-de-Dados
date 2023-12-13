@@ -13,8 +13,10 @@ create table alas(
     idHospital int,
     nome varchar(100),
     corredor varchar(50),
+    idEnfermeira int,
     
-    foreign key (idHospital) references hospital(idHospital)
+    foreign key (idHospital) references hospital(idHospital),
+	foreign key (idEnfermeira) references enfermeira(idEnfermeira)
 );
 
 create table enfermeira(

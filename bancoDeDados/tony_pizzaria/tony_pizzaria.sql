@@ -1,3 +1,5 @@
+drop database tony_pizzaria;
+
 create database tony_pizzaria;
 
 use tony_pizzaria;
@@ -80,26 +82,26 @@ create table comentarios(
 insert into tonyPizzaria (idPizzaria, nome, cnpj, email, telefone)values
 (1,'Tony Pizzaria - Novo Hamburgo', 46854138485546, 'tonypizzaria@gmail.com', 55011915348532);
 
-insert into usuários(idUsuario, idPizzaria, nome, telefone, cpf, senha, email, link_img_perfil)values
-(),
-(),
-(),
-(),
-();
+insert into usuarios(idUsuario, idPizzaria, nome, telefone, cpf, senha, email, link_img_perfil)values
+(0, 1, "Luiz Henrique Vidal Araujo", 5511961659165, 57681653133, "dez_13/12", "luizhva@gmail.com", ""),
+(0, 1, "Nicolas Vasconcelos Petri", 5511965161647, 42682188952, "dez_03/12", "nvpetir@gmail.com", ""),
+(0, 1, "Estela da Silva Menezes", 5511956168165, 65168165681, "out_09/10", "estrelinha@gmail.com", ""),
+(0, 1, "Carolina Neponucena", 5511916541541, 41961651614, "nov_06/11", "carolcomcerteza@gmail.com", ""),
+(0, 1, "Jessica Pereira dos Santos", 5511966116489, 55336952895, "mar_26/03", "annaeelza@gmail.com", "");
 
 insert into enderecos(idEndereco, idUsuario, cep, cidade, bairro, rua, complemento)values
-(),
-(),
-(),
-(),
-();
+(0, 1, 06325000, "Carapicuíba", "Conjunto Habitacional Presidente Castelo Branco", "Avenida Brasil", "204B bloco B"),
+(0, 2, 05325000, "São Paulo", "Parque Continental", "Rua Alfredo Pinheiro", ""),
+(0, 3, 06325000, "Carapicuíba", "Conjunto Habitacional Presidente Castelo Branco", "Avenida Brasil", ""),
+(0, 4, 04325000, "São Paulo", "Vila do Encontro", "Avenida Engenheiro Armando de Arruda Pereira", ""),
+(0, 5, 03325000,"São Paulo", "Vila Santo Estevão", "Rua Aguapeí", "");
 
 insert into categorias(idCategoria, nome, qntd_produtos, subCategorias)values
-(),
-(),
-(),
-(),
-();
+(0, "Pizzas", 2, ""),
+(0, "Pizzas", 2, ""),
+(0, "Pizzas", 2, ""),
+(0, "Refrigerantes"),
+(0, "Refrigerantes");
 
 insert into produtos(idProduto, idCategoria, nome, descricao, preco, link_img_produtos)values
 (),
