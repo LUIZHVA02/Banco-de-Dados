@@ -102,19 +102,19 @@ insert into enderecos(idEndereco, idUsuario, cep, cidade, bairro, rua, complemen
 (0, 2, 05325000, "São Paulo", "Parque Continental", "Rua Alfredo Pinheiro", ""),
 (0, 3, 06325000, "Carapicuíba", "Conjunto Habitacional Presidente Castelo Branco", "Avenida Brasil", "204B bloco B"),
 (0, 4, 04325000, "São Paulo", "Vila do Encontro", "Avenida Engenheiro Armando de Arruda Pereira", ""),
-(0, 5, 03325000,"São Paulo", "Vila Santo Estevão", "Rua Aguapeí", "");
+(0, 5, 03325000, "São Paulo", "Vila Santo Estevão", "Rua Aguapeí", "");
 
 insert into categorias(idCategoria, nome, qntd_produtos, subCategoria)values
-(0, "Pizzas", 2, "Salgadas"),
-(0, "Pizzas", 2, "Doces"),
-(0, "Pizzas Brotinho", 2, "Salgadas"),
-(0, "Pizzas Brotinho", 2, "Doces"),
+(0, "Pizzas", 25, "Salgadas"),
+(0, "Pizzas", 15, "Doces"),
+(0, "Pizzas Brotinho", 25, "Salgadas"),
+(0, "Pizzas Brotinho", 15, "Doces"),
 (0, "Sobremesas", 5, "Maiores"),
 (0, "Sobremesas", 5, "Menores"),
-(0, "Bebidas", 9, "3 Litros"),
-(0, "Bebidas", 9, "2 Litros"),
-(0, "Bebidas", 8, "1 Litro"),
-(0, "Bebidas", 9, "600 Mililitros");
+(0, "Bebidas", 10, "3 Litros"),
+(0, "Bebidas", 15, "2 Litros"),
+(0, "Bebidas", 10, "1 Litro"),
+(0, "Bebidas", 10, "600 Mililitros");
 
 insert into produtos(idProduto, idCategoria, nome, descricao, preco, link_img_produtos)values
 (0, 1, "Pizza de Calabreza com Queijo", "", 16.99, ""),
@@ -129,11 +129,16 @@ insert into produtos(idProduto, idCategoria, nome, descricao, preco, link_img_pr
 (0, 10, "Cerveja Heineken", "", 18.99, "");
 
 insert into pedidos(idPedido, idProduto, idUsuario, data_hora_pedido, data_hora_entrega, valorTotal)values
-(0, ),
-(0, ),
-(0, ),
-(0, ),
-(0, );
+(1, 1, 1, "2023-12-14 18:37:56", "2023-12-14 19:17:00", 16.99),
+(2, 4, 1, "2023-12-14 18:37:56", "2023-12-14 19:17:00", 15.99),
+(3, 8, 1, "2023-12-14 18:37:56", "2023-12-14 19:17:00", 10.99),
+(4, 2, 2, "2023-12-14 18:57:44", "2023-12-14 19:37:00", 19.99),
+(5, 6, 2, "2023-12-14 18:57:44", "2023-12-14 18:37:00", 13.80),
+(6, 9, 2, "2023-12-14 18:57:44", "2023-12-14 19:37:00", 08.99),
+(7, 3, 5, "2023-12-14 18:28:33", "2023-12-14 19:08:00", 14.99),
+(8, 1, 5, "2023-12-14 18:28:33", "2023-12-14 19:08:00", 16.99),
+(9, 7, 5, "2023-12-14 16:28:33", "2023-12-14 19:08:00", 10.99);
+
 
 insert into comentarios(idComentario, idUsuario, idProduto, texto, data_hora_publicacao, avaliacao)values
 (),
