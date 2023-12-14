@@ -78,7 +78,7 @@ create table comentarios(
 );
 
 create table pagamentos(
-	idPagamento int primary key not null auto_increment,
+	idPagamento int primary key not null,
     idPedido int,
     forma_pagamento1 varchar(200),
     forma_pagamento2 varchar(200),
@@ -100,7 +100,7 @@ insert into usuarios(idUsuario, idPizzaria, nome, telefone, cpf, senha, email, l
 insert into enderecos(idEndereco, idUsuario, cep, cidade, bairro, rua, complemento)values
 (0, 1, 06325000, "Carapicuíba", "Conjunto Habitacional Presidente Castelo Branco", "Avenida Brasil", "204B bloco B"),
 (0, 2, 05325000, "São Paulo", "Parque Continental", "Rua Alfredo Pinheiro", ""),
-(0, 3, 06325000, "Carapicuíba", "Conjunto Habitacional Presidente Castelo Branco", "Avenida Brasil", ""),
+(0, 3, 06325000, "Carapicuíba", "Conjunto Habitacional Presidente Castelo Branco", "Avenida Brasil", "204B bloco B"),
 (0, 4, 04325000, "São Paulo", "Vila do Encontro", "Avenida Engenheiro Armando de Arruda Pereira", ""),
 (0, 5, 03325000,"São Paulo", "Vila Santo Estevão", "Rua Aguapeí", "");
 
@@ -142,3 +142,9 @@ insert into comentarios(idComentario, idUsuario, idProduto, texto, data_hora_pub
 (),
 ();
 
+insert into pagamentos(idPagamento, idPedido, forma_pagamento1, forma_pagamento2, forma_pagamento3)values
+(),
+(),
+(),
+(),
+();
