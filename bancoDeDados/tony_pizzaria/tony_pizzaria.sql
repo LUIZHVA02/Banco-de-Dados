@@ -1,3 +1,5 @@
+drop database tony_pizzaria;
+
 create database tony_pizzaria;
 
 use tony_pizzaria;
@@ -57,6 +59,7 @@ create table pedidos(
 	idPedido int primary key not null,
     idProduto int,
     idUsuario int,
+    numero_pedido int,
     data_hora_pedido datetime,
     data_hora_entrega datetime,
     valorTotal double,
@@ -69,7 +72,7 @@ create table comentarios(
 	idComentario int primary key not null auto_increment,
     idUsuario int,
     idProduto int,
-    texto varchar(200),
+    texto varchar(500),
     data_hora_publicacao datetime,
     avaliacao int,
     
@@ -117,9 +120,9 @@ insert into categorias(idCategoria, nome, qntd_produtos, subCategoria)values
 (0, "Bebidas", 10, "600 Mililitros");
 
 insert into produtos(idProduto, idCategoria, nome, descricao, preco, link_img_produtos)values
-(0, 1, "Pizza de Calabreza com Queijo", "", 16.99, ""),
+(0, 1, "Pizza de Calabreza com Queijo", "", 16.99, "https://raw.githubusercontent.com/LUIZHVA02/P-W-F-E/main/projetos-Front-End/aula-8-Tony-Pizzaria/img/webp/pizza-de-calabreza-com-queijo.webp"),
 (0, 2, "Pizza de Chocolate com Morango","", 19.99, ""),
-(0, 3, "Pizza Brotinho de Calabreza com Queijo", "", 14.99, ""),
+(0, 3, "Pizza Brotinho de Calabreza com Queijo", "", 14.99, "https://raw.githubusercontent.com/LUIZHVA02/P-W-F-E/main/projetos-Front-End/aula-8-Tony-Pizzaria/img/webp/pizza-brotinho-de-calabreza-com-queijo.webp"),
 (0, 4, "Pizza Brotinho de Prestígio", "", 15.99, ""),
 (0, 5, "Balde de Sorvete", "Balde de 3 Litros de Sorvete do sabor de sua escolha", 27.90, ""),
 (0, 6, "Milkshake", "Milkshake de 500 gramas com o sabor de sua escolha", 13.80, ""),
@@ -128,28 +131,34 @@ insert into produtos(idProduto, idCategoria, nome, descricao, preco, link_img_pr
 (0, 9, "Refrigerante Pepsi Cola", "", 8.99, ""),
 (0, 10, "Cerveja Heineken", "", 18.99, "");
 
-insert into pedidos(idPedido, idProduto, idUsuario, data_hora_pedido, data_hora_entrega, valorTotal)values
-(1, 1, 1, "2023-12-14 18:37:56", "2023-12-14 19:17:00", 16.99),
-(2, 4, 1, "2023-12-14 18:37:56", "2023-12-14 19:17:00", 15.99),
-(3, 8, 1, "2023-12-14 18:37:56", "2023-12-14 19:17:00", 10.99),
-(4, 2, 2, "2023-12-14 18:57:44", "2023-12-14 19:37:00", 19.99),
-(5, 6, 2, "2023-12-14 18:57:44", "2023-12-14 18:37:00", 13.80),
-(6, 9, 2, "2023-12-14 18:57:44", "2023-12-14 19:37:00", 08.99),
-(7, 3, 5, "2023-12-14 18:28:33", "2023-12-14 19:08:00", 14.99),
-(8, 1, 5, "2023-12-14 18:28:33", "2023-12-14 19:08:00", 16.99),
-(9, 7, 5, "2023-12-14 16:28:33", "2023-12-14 19:08:00", 10.99);
+insert into pedidos(idPedido, idProduto, idUsuario, numero_pedido, data_hora_pedido, data_hora_entrega, valorTotal)values
+(1, 1, 1, 1,"2023-12-14 18:37:56", "2023-12-14 19:17:00", 16.99),
+(2, 4, 1, 1,"2023-12-14 18:37:56", "2023-12-14 19:17:00", 15.99),
+(3, 8, 1, 1,"2023-12-14 18:37:56", "2023-12-14 19:17:00", 10.99),
+(4, 2, 2, 2,"2023-12-14 18:57:44", "2023-12-14 19:37:00", 19.99),
+(5, 6, 2, 2,"2023-12-14 18:57:44", "2023-12-14 19:37:00", 13.80),
+(6, 9, 2, 2,"2023-12-14 18:57:44", "2023-12-14 19:37:00",  8.99),
+(7, 1, 3, 3,"2023-12-14 18:04:56", "2023-12-14 18:44:00", 16.99),
+(8, 4, 3, 3,"2023-12-14 18:04:56", "2023-12-14 18:44:00", 15.99),
+(9, 9, 3, 3,"2023-12-14 18:04:56", "2023-12-14 18:44:00",  8.99),
+(10, 2, 4, 4,"2023-12-14 18:46:44", "2023-12-14 19:26:00", 19.99),
+(11, 5, 4, 4,"2023-12-14 18:46:44", "2023-12-14 19:26:00", 13.80),
+(12, 9, 4, 4,"2023-12-14 18:46:44", "2023-12-14 19:26:00",  8.99),
+(13, 3, 5, 5,"2023-12-14 18:28:33", "2023-12-14 19:08:00", 14.99),
+(14, 1, 5, 5,"2023-12-14 18:28:33", "2023-12-14 19:08:00", 16.99),
+(15, 10, 5, 5,"2023-12-14 16:28:33", "2023-12-14 19:08:00", 18.99);
 
 
 insert into comentarios(idComentario, idUsuario, idProduto, texto, data_hora_publicacao, avaliacao)values
-(),
-(),
-(),
-(),
-();
+(0, 1, 1, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", "2023-12-14 19:57:52", 4),
+(0, 2, 6, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", "2023-12-14 20:02:14", 5),
+(0, 3, 4, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", "2023-12-14 19:15:47", 4),
+(0, 4, 4, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", "2023-12-14 19:56:29", 5),
+(0, 5, 10, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", "2023-12-14 19:38:15", 3);
 
 insert into pagamentos(idPagamento, idPedido, forma_pagamento1, forma_pagamento2, forma_pagamento3)values
-(),
-(),
-(),
-(),
-();
+(1, 10, "Cartão de Crédito: MasterCard Black", "Chave Pix: Aleatória", "Valé Refeição: Alelo"),
+(2, 13, "Cartão de Crédito: Visa Gold", "Chave Pix: Telefone", "Valé Refeição: Sodexo"),
+(3, 4, "Cartão de Crédito: Nubank Mastercard", "Chave Pix: CPF", "Valé Refeição: Sodexo"),
+(4, 7, "Cartão de Crédito: Visa OuroCard", "Chave Pix: Aleatória", "Valé Refeição: Sodexo"),
+(5, 11, "Cartão de Crédito: MasterCard Platinum", "Chave Pix: email", "Valé Refeição: Alelo");
